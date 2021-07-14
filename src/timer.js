@@ -6,9 +6,9 @@ import TimerButton from "./TimerButton";
 export default function Timer({ title, project, time }) {
   const timeString = millisecondsToTime(time);
   return (
-    <View styles={styles.timerContainer}>
+    <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text> {project}</Text>
+      <Text>{project}</Text>
       <Text style={styles.timeSoFar}> {timeString} </Text>
       <View style={styles.button}>
         <TimerButton color="pink" small title="Edit" />
@@ -19,9 +19,9 @@ export default function Timer({ title, project, time }) {
   );
 }
 const styles = StyleSheet.create({
-  timerContainer: {
+  container: {
     backgroundColor: "white",
-    borderColor: "#d6d7da",
+    borderColor: "pink",
     borderWidth: 2,
     borderRadius: 10,
     padding: 15,
@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold"
   },
-  elapsedTime: {
+  timeSoFar: {
     fontSize: 26,
     fontWeight: "bold",
     textAlign: "center",
     paddingVertical: 15
   },
-  buttonGroup: {
+  button: {
     flexDirection: "row",
     justifyContent: "space-between"
   }

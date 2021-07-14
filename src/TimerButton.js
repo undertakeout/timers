@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     minWidth: 100,
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: 3
   },
   small: {

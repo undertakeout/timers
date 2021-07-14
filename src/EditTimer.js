@@ -18,7 +18,7 @@ export default function EditTimer({
       id={id}
       title={title}
       project={project}
-      elapsed={elapsed}
+      time={elapsed}
       isRunning={isRunning}
     />
   );
