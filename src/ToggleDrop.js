@@ -1,22 +1,32 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React from "react";
+import { StyleSheet, View } from "react-native";
 
-import TimerButton from './TimerButton';
-import TimerForm from './TimerForm';
+import TimerButton from "./TimerButton";
+import TimerForm from "./TimerForm";
 
 export default function ToggleableTimerForm({ isOpen }) {
   return (
     <View style={[styles.container, !isOpen && styles.buttonPadding]}>
-      {isOpen ? <TimerForm /> : <TimerButton title="+" color="black" />}
+      {isOpen ? (
+        <TimerForm />
+      ) : (
+        <TimerButton
+          title="+"
+          color="black"
+          onPress={(isOpen) => {
+            isOpen = isOpen ? false : true;
+          }}
+        />
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: 10
   },
   buttonPadding: {
-    paddingHorizontal: 15,
-  },
+    paddingHorizontal: 15
+  }
 });

@@ -3,8 +3,31 @@ import { StyleSheet, View, ScrollView, Text, Platform } from "react-native";
 import EditTimer from "./EditTimer";
 import ToggleableTimerForm from "./ToggleDrop";
 
+const getID = () => {
+  return Math.floor(Math.random() * 10000000);
+};
+
 export default class App extends React.Component {
+  state = {
+    timers: [
+      {
+        title: "eat",
+        project: "",
+        id: getID(),
+        elapsed: 6546000,
+        isRunning: true
+      },
+      {
+        title: "cook",
+        project: "",
+        id: getID(),
+        elapsed: 1234567,
+        isRunning: false
+      }
+    ]
+  };
   render() {
+    const { timers } = this.state;
     return (
       <View styles={styles.appContainer}>
         <View styles={styles.titleContainer}>
@@ -12,13 +35,16 @@ export default class App extends React.Component {
         </View>
         <ScrollView style={styles.timerList}>
           <ToggleableTimerForm isOpen={false} />
-          <EditTimer
-            id="1"
-            title="Mow the lawn"
-            project="House Chores"
-            elapsed="8986300"
-            isRunning
-          />
+          {timers.map(({ title, project, id, elapsed, isRunning }) => (
+            <EditTimer
+              key={id}
+              id={id}
+              title={title}
+              project={project}
+              elapsed={elapsed}
+              isRunning={isRunning}
+            />
+          ))}
         </ScrollView>
       </View>
     );
