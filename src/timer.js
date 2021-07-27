@@ -3,12 +3,11 @@ import { StyleSheet, View, Text } from "react-native";
 import { millisecondsToTime } from "./utilities";
 import TimerButton from "./TimerButton";
 
-export default function Timer({ title, project, time }) {
+export default function Timer({ title, time }) {
   const timeString = millisecondsToTime(time);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text>{project}</Text>
       <Text style={styles.timeSoFar}> {timeString} </Text>
       <View style={styles.button}>
         <TimerButton color="pink" small title="Edit" />

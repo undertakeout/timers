@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, ScrollView, Text, Platform } from "react-native";
 import EditTimer from "./EditTimer";
-import ToggleableTimerForm from "./ToggleDrop";
+import Toggleable from "./ToggleDrop";
 
 const getID = () => {
   return Math.floor(Math.random() * 10000000);
@@ -12,17 +12,21 @@ export default class App extends React.Component {
     timers: [
       {
         title: "eat",
-        project: "",
         id: getID(),
-        elapsed: 6546000,
+        time: 6546000,
         isRunning: true
       },
       {
         title: "cook",
-        project: "",
         id: getID(),
-        elapsed: 1234567,
+        time: 1234567,
         isRunning: false
+      },
+      {
+        title: "pie",
+        id: getID(),
+        time: 99999999,
+        isRunning: true
       }
     ]
   };
@@ -34,14 +38,13 @@ export default class App extends React.Component {
           <Text style={styles.title}>Timers.</Text>
         </View>
         <ScrollView style={styles.timerList}>
-          <ToggleableTimerForm isOpen={false} />
-          {timers.map(({ title, project, id, elapsed, isRunning }) => (
+          <Toggleable />
+          {timers.map(({ title, id, time, isRunning }) => (
             <EditTimer
               key={id}
               id={id}
               title={title}
-              project={project}
-              elapsed={elapsed}
+              time={time}
               isRunning={isRunning}
             />
           ))}
