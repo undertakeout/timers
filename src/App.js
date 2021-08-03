@@ -2,9 +2,7 @@ import React from "react";
 import { StyleSheet, View, ScrollView, Text, Platform } from "react-native";
 import EditTimer from "./EditTimer";
 import Toggleable from "./ToggleDrop";
-import {aTimer,getID} from "./utilities"
-
-
+import { aTimer, getID } from "./utilities";
 
 export default class App extends React.Component {
   state = {
@@ -20,7 +18,7 @@ export default class App extends React.Component {
         id: getID(),
         time: 1234567,
         isRunning: false
-      },
+      }
       // {
       //   title: "pie",
       //   id: getID(),
@@ -30,47 +28,63 @@ export default class App extends React.Component {
     ]
   };
 
-  handleCreateFormSubmit = timer => {
-    const {timers} = this.state
+  componentDidMount() {
+    const time_int = 1000;
+    this.intervalId = setInterval(() => {
+      const { timers } = this.state;
 
-    this.setState({timers:[aTimer(timer),...timers]})
+      this.setState({
+        timers: timers.map((timer) => {
+          const { time, isRunning } = timer;
 
+          return {
+            ...timer,
+            time: isRunning ? time + time_int : time
+          };
+        })
+      });
+    }, time_int);
   }
 
-  handleFormSubmit = atts => {
-    const {timers} = this.state
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+
+  handleCreateFormSubmit = (timer) => {
+    const { timers } = this.state;
+
+    this.setState({ timers: [aTimer(timer), ...timers] });
+  };
+
+  handleFormSubmit = (atts) => {
+    const { timers } = this.state;
     // console.log(atts)
     this.setState({
-      timers : timers.map(timer => {
+      timers: timers.map((timer) => {
         if (timer.id === atts.id) {
-          const {title} = atts
+          const { title } = atts;
 
           return {
             ...timer,
             title
-          }
+          };
         }
 
-        return timer
+        return timer;
       })
-    })
-  }
+    });
+  };
 
-  handleFormRemove = atts =>{
-    const {timers} = this.state
-    const matchID = (timer) =>{
-     
-      return timer.id !== atts}
-  
+  handleFormRemove = (atts) => {
+    const { timers } = this.state;
+    const matchID = (timer) => {
+      return timer.id !== atts;
+    };
 
-    let newSt = timers.filter(matchID)
+    let newSt = timers.filter(matchID);
 
-    this.setState({timers:newSt})
-
-
-
-    }
-  
+    this.setState({ timers: newSt });
+  };
 
   render() {
     const { timers } = this.state;
@@ -80,7 +94,7 @@ export default class App extends React.Component {
           <Text style={styles.title}>Timers.</Text>
         </View>
         <ScrollView style={styles.timerList}>
-          <Toggleable onFormSubmit={this.handleCreateFormSubmit}/>
+          <Toggleable onFormSubmit={this.handleCreateFormSubmit} />
           {timers.map(({ title, id, time, isRunning }) => (
             <EditTimer
               key={id}
@@ -88,8 +102,8 @@ export default class App extends React.Component {
               title={title}
               time={time}
               isRunning={isRunning}
-              onFormSubmit = {this.handleFormSubmit}
-              onFormRemove = {this.handleFormRemove}
+              onFormSubmit={this.handleFormSubmit}
+              onFormRemove={this.handleFormRemove}
             />
           ))}
         </ScrollView>
