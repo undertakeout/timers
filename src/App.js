@@ -2,10 +2,11 @@ import React from "react";
 import { StyleSheet, View, ScrollView, Text, Platform } from "react-native";
 import EditTimer from "./EditTimer";
 import Toggleable from "./ToggleDrop";
+import {aTimer,getID} from "./utilities"
 
-const getID = () => {
-  return Math.floor(Math.random() * 10000000);
-};
+// const getID = () => {
+//   return Math.floor(Math.random() * 10000000);
+// };
 
 export default class App extends React.Component {
   state = {
@@ -30,6 +31,14 @@ export default class App extends React.Component {
       }
     ]
   };
+
+  handleCreateFormSubmit = timer => {
+    const {timers} = this.state
+
+    this.setState({timers:[aTimer(timer),...timers]})
+
+  }
+
   render() {
     const { timers } = this.state;
     return (
@@ -38,7 +47,7 @@ export default class App extends React.Component {
           <Text style={styles.title}>Timers.</Text>
         </View>
         <ScrollView style={styles.timerList}>
-          <Toggleable />
+          <Toggleable onFormSubmit={this.handleCreateFormSubmit}/>
           {timers.map(({ title, id, time, isRunning }) => (
             <EditTimer
               key={id}

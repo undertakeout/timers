@@ -16,16 +16,16 @@ export default class TimerForm extends React.Component {
     this.setState({title})
   }
 
-  handleSubmission = () => {
-    const {onSubmit,id} = this.props
+  handleSubmit = () => {
+    const {onFormSubmit,id} = this.props
     const {title} = this.state
 
-    onSubmit ({id,title})
+    onFormSubmit({id,title})
   }
 
 
   render (){
-    const {id,formClose} = this.props
+    const {id,onFormClose} = this.props
     const{title} = this.state
     const submitText = id ? 'Update':'Create'
   return (
@@ -43,8 +43,8 @@ export default class TimerForm extends React.Component {
       </View>
       <View style={styles.attributeContainer}></View>
       <View style={styles.buttonGroup}>
-        <TimerButton small color="#21BA45" title={submitText} onPress = {this.handleSubmission}/>
-        <TimerButton small color="#DB2828" title="Cancel" onPress = {formClose}/>
+        <TimerButton small color="#21BA45" title={submitText} onPress = {this.handleSubmit}/>
+        <TimerButton small color="#DB2828" title="Cancel" onPress = {onFormClose}/>
       </View>
     </View>
   );

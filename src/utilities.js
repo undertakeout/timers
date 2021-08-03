@@ -12,6 +12,10 @@ export const millisecondsToTime = (ms) => {
   return time;
 };
 
+export const getID = () => {
+  return Math.floor(Math.random() * 10000000);
+};
+
 const stretch = (time) => {
   return time < 10 ? `0${time}` : time;
 };
@@ -19,9 +23,8 @@ const stretch = (time) => {
 export const aTimer = (att = {}) => {
   return {
     title: att.title || "Timer",
-    project: att.project || "Project",
-    id: 123,
-    elapsed: 0,
+    id: getID(),
+    elapsed: millisecondsToTime(100),
     isRunning: false
   };
 };

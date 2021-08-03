@@ -7,17 +7,17 @@ import TimerForm from "./TimerForm";
 export default class Toggleable extends React.Component {
   state = { isOpen: false };
 
-  openTheForm = () => {
+  handleFormOpen = () => {
     this.setState({ isOpen: true });
   };
 
-  formClose = () => {
+  handleFormClose = () => {
     this.setState({ isOpen: false });
   };
 
-  handleformSubmit = (timer) => {
-    const { onSubmit } = this.props;
-    onSubmit(timer);
+  handleFormSubmit = (timer) => {
+    const { onFormSubmit } = this.props;
+    onFormSubmit(timer);
     this.setState({ isOpen: false });
   };
 
@@ -27,11 +27,11 @@ export default class Toggleable extends React.Component {
       <View style={[styles.container, !isOpen && styles.buttonPadding]}>
         {isOpen ? (
           <TimerForm
-            onSubmit={this.handleformSubmit}
-            onClose={this.formClose}
+            onFormSubmit={this.handleFormSubmit}
+            onFormClose={this.handleFormClose}
           />
         ) : (
-          <TimerButton title="+" color="black" onPress={this.openTheForm} />
+          <TimerButton title="+" color="black" onPress={this.handleFormOpen} />
         )}
       </View>
     );
