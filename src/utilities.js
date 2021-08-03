@@ -24,7 +24,7 @@ export const aTimer = (att = {}) => {
   return {
     title: att.title || "Timer",
     id: getID(),
-    elapsed: millisecondsToTime(100),
+    time:0,
     isRunning: false
   };
 };

@@ -4,9 +4,7 @@ import EditTimer from "./EditTimer";
 import Toggleable from "./ToggleDrop";
 import {aTimer,getID} from "./utilities"
 
-// const getID = () => {
-//   return Math.floor(Math.random() * 10000000);
-// };
+
 
 export default class App extends React.Component {
   state = {
@@ -23,12 +21,12 @@ export default class App extends React.Component {
         time: 1234567,
         isRunning: false
       },
-      {
-        title: "pie",
-        id: getID(),
-        time: 99999999,
-        isRunning: true
-      }
+      // {
+      //   title: "pie",
+      //   id: getID(),
+      //   time: 99999999,
+      //   isRunning: true
+      // }
     ]
   };
 
@@ -38,6 +36,41 @@ export default class App extends React.Component {
     this.setState({timers:[aTimer(timer),...timers]})
 
   }
+
+  handleFormSubmit = atts => {
+    const {timers} = this.state
+    // console.log(atts)
+    this.setState({
+      timers : timers.map(timer => {
+        if (timer.id === atts.id) {
+          const {title} = atts
+
+          return {
+            ...timer,
+            title
+          }
+        }
+
+        return timer
+      })
+    })
+  }
+
+  handleFormRemove = atts =>{
+    const {timers} = this.state
+    const matchID = (timer) =>{
+     
+      return timer.id !== atts}
+  
+
+    let newSt = timers.filter(matchID)
+
+    this.setState({timers:newSt})
+
+
+
+    }
+  
 
   render() {
     const { timers } = this.state;
@@ -55,6 +88,8 @@ export default class App extends React.Component {
               title={title}
               time={time}
               isRunning={isRunning}
+              onFormSubmit = {this.handleFormSubmit}
+              onFormRemove = {this.handleFormRemove}
             />
           ))}
         </ScrollView>
